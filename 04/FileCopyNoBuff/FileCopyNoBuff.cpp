@@ -15,7 +15,7 @@ void _tmain(int argc, _TCHAR* argv[]) {
 	TCHAR* pszDstFile = argv[2];
 
 	HANDLE hSrcFile = CreateFile(
-		argv[1],
+		pszSrcFile,
 		GENERIC_READ,
 		FILE_SHARE_READ,
 		NULL,
@@ -38,7 +38,7 @@ void _tmain(int argc, _TCHAR* argv[]) {
 		llDstSize.QuadPart = llDstSize.QuadPart + (BUFF_SIZE - dwPad);
 
 	HANDLE hDstFile = CreateFile(
-		argv[2],
+		pszDstFile,
 		GENERIC_WRITE,
 		FILE_SHARE_READ | FILE_SHARE_WRITE,
 		NULL,
@@ -54,6 +54,7 @@ void _tmain(int argc, _TCHAR* argv[]) {
 	SetEndOfFile(hDstFile);
 
 	SetFilePointer(hDstFile, 0, NULL, FILE_BEGIN);
+
 
 	PBYTE pBuff = (PBYTE)VirtualAlloc(NULL, BUFF_SIZE, MEM_COMMIT, PAGE_READWRITE);
 	DWORD dwErrCode = 0;
