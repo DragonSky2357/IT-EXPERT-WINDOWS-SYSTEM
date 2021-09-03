@@ -57,6 +57,7 @@ LRESULT CALLBACK WndSockProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		case WM_CREATE:
 		{
 			LPCREATESTRUCT pCS = (LPCREATESTRUCT)lParam;
+			// CreateWindowEx 호출 시 마지막 매개변수로 넘겼던 자식 소켓의 포인터 흭득
 			s_pSocks = (SOCK_SET*)pCS->lpCreateParams;
 		}
 		return 0;
@@ -151,6 +152,7 @@ void _tmain() {
 		return;
 	}
 
+	// &socks은 WndSockProc의 WM_CREATE 메시지에서 인스턴스 포인터 전달
 	HWND hWnd = CreateWindowEx(
 		0, wcls.lpszClassName, NULL, 0, 0, 0, 0,0,
 		HWND_MESSAGE, NULL, wcls.hInstance, &socks
